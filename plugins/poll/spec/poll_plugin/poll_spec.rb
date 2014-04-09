@@ -64,13 +64,6 @@ describe PollPlugin::Poll do
     poll.set_vote!(user, "Onodera")
     poll.serialize(user).should eq({options: poll.details, selected: "Onodera", closed: false})
     poll.serialize(nil).should eq({options: poll.details, selected: nil, closed: false})
-
-    topic.title = "Closed Poll: my poll"
-    topic.save
-
-    post.topic.reload
-    poll = PollPlugin::Poll.new(post)
-    poll.serialize(nil).should eq({options: poll.details, selected: nil, closed: true})
   end
 
   it "should serialize to nil if there are no poll options" do
